@@ -5,14 +5,14 @@ import Section from "@/components/Section";
 import { caseStudies, profile, projects } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "AI Agent Development and Backend Engineering",
-  description: "Design and build AI agent backends, task workflows and APIs, grounded in hands-on work with a multi-agent task mesh.",
+  title: "AI Agent Developer in Dhaka | Backend Engineering",
+  description: "Work with a Dhaka-based AI agent developer on backend APIs, task workflows and integrations, informed by hands-on work building a multi-agent task mesh.",
   alternates: { canonical: "/ai-agent-development" },
   openGraph: {
     type: "website",
     url: "/ai-agent-development",
-    title: "AI Agent Development and Backend Engineering",
-    description: "Design and build AI agent backends, task workflows and APIs, grounded in hands-on work with a multi-agent task mesh.",
+    title: "AI Agent Developer in Dhaka | Backend Engineering",
+    description: "Design AI agent backends, task workflows and APIs with an engineer based in Dhaka, Bangladesh.",
   },
 };
 
@@ -42,7 +42,7 @@ export default function AiAgentDevelopment() {
   return (
     <main id="main">
       <PageHeader eyebrow="AI agent development" title="Build agent systems around real work">
-        {profile.name} designs agent backends, task workflows and APIs, informed by building a multi-agent task mesh.
+        {profile.name} is an AI agent developer based in Dhaka, Bangladesh, designing backend APIs and task workflows informed by building a multi-agent task mesh.
       </PageHeader>
       <Section title="What an agent backend needs">
         <div className="grid gap-x-12 gap-y-8 sm:grid-cols-2">

@@ -4,14 +4,14 @@ import PageHeader from "@/components/PageHeader";
 import Section from "@/components/Section";
 
 export const metadata: Metadata = {
-  title: "LLM, RAG and AI Product Development",
-  description: "Plan and build LLM features, retrieval-augmented generation (RAG) systems and AI products, from model integration through the full-stack application.",
+  title: "LLM & RAG Development in Bangladesh",
+  description: "Dhaka-based AI engineering for LLM features, RAG systems and AI products—from model integration and evaluation to a complete full-stack application.",
   alternates: { canonical: "/ai-development" },
   openGraph: {
     type: "website",
     url: "/ai-development",
-    title: "LLM, RAG and AI Product Development",
-    description: "Build LLM features and RAG systems as dependable parts of a full-stack product.",
+    title: "LLM & RAG Development in Bangladesh",
+    description: "Build LLM features and RAG systems with a Dhaka-based AI engineer, from model integration through the full-stack product.",
   },
 };
 
@@ -25,8 +25,8 @@ const capabilities = [
 export default function AiDevelopment() {
   return (
     <main id="main">
-      <PageHeader eyebrow="AI product development" title="Build the product around the model">
-        LLM features, retrieval systems and agent backends, designed as parts of a working product rather than isolated demos.
+      <PageHeader eyebrow="AI product development · Dhaka, Bangladesh" title="Build the product around the model">
+        Dhaka-based AI engineering for LLM features, retrieval systems and agent backends, designed as parts of a working product rather than isolated demos.
       </PageHeader>
       <Section title="What I can help build">
         <div className="grid gap-x-12 gap-y-8 sm:grid-cols-2">
@@ -45,6 +45,12 @@ export default function AiDevelopment() {
           <Link href="/my-works/suprbuild-mesh" className="underline underline-offset-4">Read the agent-mesh case study</Link>
           <Link href="/articles/a-checklist-before-you-ship-an-llm-feature" className="underline underline-offset-4">LLM release checklist</Link>
         </div>
+      </Section>
+      <Section title="Bangla AI and product-specific language support">
+        <p className="max-w-3xl leading-relaxed text-muted">
+          AI products for Bangladesh may need more than a translated interface. Route52 is a Bangla-native assistant project with persistent conversations and agent-oriented workflows. Its case study shows how I approach language-aware product design alongside the underlying AI and application engineering.
+        </p>
+        <Link href="/my-works/route52" className="mt-5 inline-block text-sm underline underline-offset-4">Read the Route52 case study</Link>
       </Section>
       <Section title="Discuss a project">
         <p className="max-w-2xl text-muted">Send the product context, the users it serves and the part you need help with. We can agree on scope before work begins.</p>

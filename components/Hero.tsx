@@ -51,6 +51,9 @@ export default function Hero() {
         </motion.h1>
         <p className="reveal mt-6 text-lg text-muted" style={{ animationDelay: ".6s" }} aria-hidden>Building <Rotator /></p>
         <p className="reveal mt-4 max-w-xl text-lg text-muted" style={{ animationDelay: ".7s" }}>{profile.intro}</p>
+        <p className="reveal mt-3 max-w-xl text-sm leading-relaxed text-muted" style={{ animationDelay: ".8s" }}>
+          Based in Dhaka, Bangladesh, I work on LLM and RAG applications, AI agent backends, and full-stack AI products for local and remote teams.
+        </p>
         <div className="reveal mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm" style={{ animationDelay: ".9s" }}>
           <MagneticLink href="/contact" className="rounded-full bg-ink px-5 py-2.5 font-medium text-bg">Get in touch</MagneticLink>
           <a className="py-2.5 underline underline-offset-4" href="#work-with-me">Work with me</a>

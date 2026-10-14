@@ -9,14 +9,14 @@ import ContactForm from "@/components/ContactForm";
 import { caseStudies, projects, skills, stats, availability, articles, experience, readingMinutes, slugify, profile } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "AI Engineer and Full-Stack Developer in Dhaka",
-  description: "Mahmud Al Muhaimin builds AI agent backends, LLM products and full-stack applications. Explore selected projects, experience and technical writing.",
+  title: "AI Engineer in Dhaka | LLM, RAG & AI Agents",
+  description: "Mahmud Al Muhaimin is an AI engineer in Dhaka, Bangladesh, building practical LLM, RAG and AI agent systems. Explore projects, experience and ways to work together.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: "/",
-    title: "AI Engineer and Full-Stack Developer in Dhaka",
-    description: "Explore AI agent backends, LLM products, full-stack projects and experience by Mahmud Al Muhaimin.",
+    title: "AI Engineer in Dhaka | LLM, RAG & AI Agents",
+    description: "Explore practical LLM, RAG and AI agent projects by Mahmud Al Muhaimin, an AI engineer based in Dhaka, Bangladesh.",
   },
 };
 
