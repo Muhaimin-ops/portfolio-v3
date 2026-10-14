@@ -6,10 +6,11 @@ import Section from "@/components/Section";
 import Reveal from "@/components/Reveal";
 import Marquee from "@/components/Marquee";
 import SpotlightCard from "@/components/SpotlightCard";
-import { projects, skills, offers, stats, availability, articles, readingMinutes } from "@/lib/data";
+import { caseStudies, projects, skills, offers, stats, availability, articles, readingMinutes, slugify } from "@/lib/data";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
+  openGraph: { type: "website", url: "/" },
 };
 
 const money = (c: number, m: string) => `$${(c / 100).toLocaleString("en-US")}${m === "subscription" ? "/mo" : ""}`;
@@ -36,13 +37,27 @@ export default function Home() {
           </dl>
         </div>
       </div>
+      <Section title="How can I help?">
+        <div className="grid gap-8 sm:grid-cols-2">
+          <div>
+            <h3 className="font-display text-2xl font-medium">Hiring an engineer?</h3>
+            <p className="mt-3 max-w-lg text-muted">Review my experience, technical focus and selected work for AI engineering and full-stack roles.</p>
+            <Link href="/for-employers" className="mt-5 inline-block underline underline-offset-4">For employers</Link>
+          </div>
+          <div>
+            <h3 className="font-display text-2xl font-medium">Building an AI product?</h3>
+            <p className="mt-3 max-w-lg text-muted">See the kinds of LLM and agent work I take on, how a project starts and how to get in touch.</p>
+            <Link href="/ai-development" className="mt-5 inline-block underline underline-offset-4">AI product development</Link>
+          </div>
+        </div>
+      </Section>
       <Marquee items={Object.values(skills).flatMap((v) => v.split(", "))} />
       <Section title="Selected work">
         <div className="grid gap-6 sm:grid-cols-3">
           {projects.slice(0, 3).map((p, i) => (
             <Reveal key={p.name} delay={i * 0.1}>
               <SpotlightCard className="h-full">
-                <Link href="/my-works" className="group flex h-full flex-col p-6">
+                <Link href={caseStudies.some((study) => study.projectName === p.name) ? `/my-works/${slugify(p.name)}` : "/my-works"} className="group flex h-full flex-col p-6">
                   <p className="text-sm text-muted">{p.tag}</p>
                   <h3 className="mt-2 font-display text-xl font-medium">{p.name}</h3>
                   <p className="mt-3 line-clamp-4 text-muted">{p.body}</p>

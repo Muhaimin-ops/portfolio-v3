@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { trackEvent } from "./Analytics";
 
 type State = "idle" | "sending" | "sent" | "error";
 const field = "mt-2 w-full rounded-xl border border-line bg-transparent px-4 py-3 outline-none transition focus:border-accent";
@@ -16,6 +17,7 @@ export default function ContactForm({ email }: { email: string }) {
       const res = await fetch("/api/contact", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(data) });
       const out = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(out.error || "Something went wrong.");
+      trackEvent("Contact Form Submitted");
       setState("sent"); form.reset();
     } catch (err) {
       setState("error"); setMsg(err instanceof Error ? err.message : "Something went wrong.");

@@ -21,15 +21,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       title: a.title,
       description: a.summary,
+      url: `${siteUrl}/articles/${a.slug}`,
       publishedTime: a.date,
       tags: a.tags,
-      images: [{ url: `${siteUrl}/opengraph-image`, width: 1200, height: 630, alt: `${a.title} — Mahmud Al Muhaimin` }],
+      images: [{ url: `${siteUrl}/opengraph-image`, width: 1200, height: 630, alt: `${a.title} - Mahmud Al Muhaimin` }],
     },
     twitter: {
       card: "summary_large_image",
       title: a.title,
       description: a.summary,
-      images: [{ url: `${siteUrl}/opengraph-image`, alt: `${a.title} — Mahmud Al Muhaimin` }],
+      images: [{ url: `${siteUrl}/opengraph-image`, alt: `${a.title} - Mahmud Al Muhaimin` }],
     },
   };
 }

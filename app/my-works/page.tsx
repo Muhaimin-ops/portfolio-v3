@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Projects",
   description: "AI systems, agent backends, machine learning and full-stack products I have built.",
   alternates: { canonical: "/my-works" },
+  openGraph: { type: "website", url: "/my-works" },
 };
 
 const jsonLd = {

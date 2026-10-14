@@ -2,7 +2,8 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SpotlightCard from "./SpotlightCard";
-import type { Project } from "@/lib/data";
+import Link from "next/link";
+import { caseStudies, slugify, type Project } from "@/lib/data";
 
 export default function WorksGrid({ projects }: { projects: Project[] }) {
   const filters = useMemo(() => ["All", ...Array.from(new Set(projects.map((p) => p.tag.split(" · ")[0]))), "In progress"], [projects]);
@@ -29,6 +30,11 @@ export default function WorksGrid({ projects }: { projects: Project[] }) {
                   </div>
                   <h2 className="mt-2 font-display text-2xl font-medium">{p.name}</h2>
                   <p className="mt-3 text-muted">{p.body}</p>
+                  {caseStudies.some((study) => study.projectName === p.name) && (
+                    <Link href={`/my-works/${slugify(p.name)}`} className="mt-5 text-sm underline underline-offset-4">
+                      Read case study
+                    </Link>
+                  )}
                   <ul className="mt-4 space-y-1 text-sm">
                     {p.highlights.map((h) => <li key={h} className="flex gap-2"><span aria-hidden className="text-accent">→</span>{h}</li>)}
                   </ul>

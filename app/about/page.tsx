@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "About",
   description: "Background, experience and toolbox of Mahmud Al Muhaimin, AI engineer and full-stack developer in Dhaka.",
   alternates: { canonical: "/about" },
+  openGraph: { type: "website", url: "/about" },
 };
 
 export default function About() {

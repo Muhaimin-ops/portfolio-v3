@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import ContactForm from "@/components/ContactForm";
 import LocalTime from "@/components/LocalTime";
+import TrackedEmailLink from "@/components/TrackedEmailLink";
 import { profile, availability } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Contact",
   description: "Get in touch about projects, roles or collaboration.",
   alternates: { canonical: "/contact" },
+  openGraph: { type: "website", url: "/contact" },
 };
 
 export default function Contact() {
@@ -17,7 +19,7 @@ export default function Contact() {
       <section className="mx-auto grid max-w-5xl gap-16 px-6 pb-24 pt-8 md:grid-cols-[2fr_1fr]">
         <ContactForm email={profile.email} />
         <aside className="space-y-8 text-sm">
-          <div><h2 className="font-medium">Email</h2><a href={`mailto:${profile.email}`} className="mt-2 block break-all text-muted hover:text-ink">{profile.email}</a></div>
+          <div><h2 className="font-medium">Email</h2><TrackedEmailLink email={profile.email} className="mt-2 block break-all text-muted hover:text-ink" /></div>
           <div><h2 className="font-medium">Based in</h2><p className="mt-2 text-muted">{profile.location}</p><p className="text-muted"><LocalTime /></p></div>
           <div>
             <h2 className="font-medium">Elsewhere</h2>

@@ -37,6 +37,38 @@ export const projects: Project[] = [
     body: "An AI mock-test builder and weakness finder for BUET-style and DU admission exams.",
     stack: ["Next.js","Tailwind","Supabase","OpenAI-compatible API"], highlights: ["Generates exam-style mock tests","Finds each student's weak topics"], status: "In progress" },
 ];
+export type CaseStudy = {
+  slug: string;
+  projectName: string;
+  context: string;
+  approach: { heading: string; body: string }[];
+  outcome: string;
+};
+export const caseStudies: CaseStudy[] = [
+  {
+    slug: "suprbuild-mesh",
+    projectName: "SuprBuild Mesh",
+    context: "A marketplace concept where AI agents publish tasks, complete work for other agents, build reputation and receive payment. The core engineering challenge was making that lifecycle understandable and safe to retry.",
+    approach: [
+      { heading: "Model the task lifecycle", body: "The system centers on a small set of explicit states: published, claimed, completed and settled. That kept the REST surface understandable as it grew beyond 20 endpoints." },
+      { heading: "Make reputation explainable", body: "Rather than treating reputation as a number to update, completed tasks are recorded as events and the score is derived from those events. This makes the result inspectable and recomputable." },
+      { heading: "Validate with a small stack", body: "Express and SQLite were enough to exercise the design with 10+ concurrent agents. Local load tests measured about 120 ms median response time; that figure is a local test result, not a production service-level claim." },
+      { heading: "Document the next constraints", body: "The design notes identify idempotency keys for safe write retries and queued settlement as follow-up work. Those are planned improvements, not features claimed as shipped." },
+    ],
+    outcome: "A shipped project with 20+ REST endpoints, a task-state model, event-derived reputation, and measured local-load-test results.",
+  },
+  {
+    slug: "route52",
+    projectName: "Route52",
+    context: "A Bangla-native assistant project built around authentication, persistent chat history and an agent-oriented design.",
+    approach: [
+      { heading: "Build for Bangla-first use", body: "The assistant was designed as a Bangla-native product rather than a generic chat interface with language support added as an afterthought." },
+      { heading: "Keep conversations persistent", body: "Authentication and persistent chat history are part of the project, so returning users can continue conversations rather than starting over." },
+      { heading: "Use beta conversations to refine the flow", body: "The beta was tested with more than 30 users across 200+ conversations. Those conversations were used to refine the prompts and interaction flow." },
+    ],
+    outcome: "A shipped beta-tested assistant with authentication and persistent chat history. The available project notes do not include public production or accuracy metrics.",
+  },
+];
 export const experience = [
   { role: "Freelance software and digital marketing", org: "Bangladesh", when: "2020 – now",
     body: "Web development, SEO and go-to-market work for 248+ clients in SaaS, e-commerce and travel. Some grew up to 45x within six months of going digital." },
@@ -95,11 +127,16 @@ export const articles: Article[] = [
     date: "2026-10-15",
     tags: ["Agents", "Node.js", "Architecture"],
     body: [
-      { p: "SuprBuild Mesh is a marketplace where the workers are AI agents. One agent publishes a task, another completes it, and the system tracks reputation and payment. These notes explain the shape of the design and the trade-offs I made." },
-      { h: "Start with the task lifecycle", p: "Everything hangs off one small state machine: a task is published, claimed, completed and then settled. Keeping the states few and explicit made the REST surface easy to reason about, and it is why a 20-endpoint API stayed readable." },
-      { h: "Reputation is a ledger, not a number", p: "A single reputation score is easy to store and hard to trust. Recording each completed task as an event, and deriving the score from those events, means a score can always be explained, recomputed and corrected." },
-      { h: "Pick boring storage first", p: "Express with SQLite handled 10+ concurrent agents with a median response of about 120 ms in local load tests. Those are local numbers, not production ones, but they were enough to prove the design before adding anything heavier." },
-      { h: "What I would do next", p: "Add idempotency keys to every write so agents can retry safely, and move settlement behind a queue so a slow payment never blocks task completion." },
+      { p: "SuprBuild Mesh is a marketplace concept where AI agents publish tasks, complete work for other agents, build reputation and receive payment. The project explores a practical backend question: how can multiple agents coordinate work without hiding the state of that work?" },
+      { h: "Start with the task lifecycle", p: "The core lifecycle is deliberately compact: a task is published, claimed, completed and then settled. Keeping those states explicit gives the API a shared vocabulary. A client can reason about where a task is and which transition comes next, instead of interpreting a loosely defined status string." },
+      { p: "That state model also helps keep the API understandable as its surface grows. The project has more than 20 REST endpoints, but the central workflow stays anchored to a small number of transitions. The endpoint count describes the implementation, not a claim that every future workflow is solved." },
+      { h: "Treat reputation as a record of events", p: "A mutable reputation score is difficult to explain after a dispute or correction. In this design, completed tasks are recorded as events and the score is derived from those events. The important property is auditability: the value can be inspected, recomputed and corrected from its underlying history." },
+      { p: "This separation makes reputation a result of recorded work rather than an opaque field that changes without context. It does not by itself prevent dishonest activity; it gives the system a more explainable basis for reviewing the score." },
+      { h: "Choose storage that helps test the idea", p: "The implementation uses Express and SQLite. That kept the project small while exercising the task and agent flows. Local load tests covered more than 10 concurrent agents and measured roughly 120 ms median response time. These are local test results, not production benchmarks or a service-level guarantee." },
+      { p: "Starting with a small stack made it possible to test the core model without treating infrastructure scale as the first problem. The useful question at this stage was whether the API and task lifecycle could support the intended interactions." },
+      { h: "Design for retries and slow settlement", p: "Agent clients can retry a request after a timeout without knowing whether the server already completed it. Idempotency keys on write operations are a planned improvement so a retry can be distinguished from a new action." },
+      { p: "Settlement is another boundary worth protecting. Moving it behind a queue is also planned work; it would keep a slow payment operation from holding up task completion. Neither improvement is represented as shipped in the current project." },
+      { h: "What this project demonstrates", p: "SuprBuild Mesh is a shipped exploration of task-state modeling, REST API design and event-derived reputation for an agent-oriented marketplace. The strongest next step is to implement retry-safe writes and asynchronous settlement, then test those failure paths directly." },
     ],
   },
   {
@@ -121,16 +158,16 @@ export const articles: Article[] = [
   },
   {
     slug: "how-the-voice-assistant-on-this-site-works",
-    title: "How the voice assistant on this site works",
-    summary: "A browser-only voice interface on top of a small, rate-limited API route, with a fallback that needs no API key.",
+    title: "How the text assistant on this site works",
+    summary: "How the portfolio's text assistant sends questions to a rate-limited API and falls back to profile-based answers.",
     date: "2026-10-15",
-    tags: ["Voice", "Next.js", "Web APIs"],
+    tags: ["AI assistants", "Next.js", "Reliability"],
     body: [
-      { p: "The assistant in the corner of this site answers questions about my work. It is deliberately small, and every part of it can fail without breaking the page." },
-      { h: "Speech in and out", p: "Listening uses the browser's SpeechRecognition API and speaking uses speechSynthesis. Nothing is streamed to my servers as audio: the browser turns speech into text, and only that text is sent." },
-      { h: "A narrow API route", p: "The text goes to one route that limits message length and request rate. If a language model key is configured, the route sends my profile, projects and rates as context and tells the model to answer only from them." },
-      { h: "A fallback that always works", p: "Without a key, or if the model call fails, the route answers from the same data with simple intent matching. It is less fluent but it is never down." },
-      { h: "Limits", p: "SpeechRecognition is not available in every browser, so the mic button only appears where it works. Typing and spoken replies work everywhere." },
+      { p: "The assistant on this portfolio answers questions about Mahmud's projects, experience, skills and rates. Visitors type questions into a small chat interface." },
+      { h: "A narrow API route", p: "Messages are sent to a rate-limited API route with bounded message length and history. When a language model is configured, the route supplies portfolio facts and instructs it to answer only from those facts." },
+      { h: "A local fallback", p: "When no model key is configured, or the model request fails, the API uses simple intent matching against the same profile and project data to produce a basic answer." },
+      { h: "Progressive response display", p: "The interface reveals each completed answer a few characters at a time. This is a display animation; the current API response is returned as a complete message rather than streamed token by token." },
+      { h: "Limits", p: "Answers are constrained to portfolio information and may still be wrong. Visitors are encouraged to email Mahmud to confirm important details." },
     ],
   },
 ];

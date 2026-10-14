@@ -7,16 +7,16 @@ import { siteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Articles",
-  description: "Notes on AI agents, shipping LLM features and building for the web.",
+  description: "Technical notes on designing AI agent backends, shipping LLM features and building full-stack products.",
   alternates: { canonical: "/articles" },
-  openGraph: { type: "website", title: "Articles", description: "Notes on AI agents, shipping LLM features and building for the web." },
+  openGraph: { type: "website", url: "/articles", title: "Articles", description: "Technical notes on designing AI agent backends, shipping LLM features and building full-stack products." },
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Blog",
   name: "Articles by Mahmud Al Muhaimin",
-  description: "Notes on AI agents, shipping LLM features and building for the web.",
+  description: "Technical notes on designing AI agent backends, shipping LLM features and building full-stack products.",
   url: `${siteUrl}/articles`,
   blogPost: articles.map((article) => ({
     "@type": "BlogPosting",
@@ -31,7 +31,7 @@ export default function Articles() {
   return (
     <main id="main">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      <PageHeader eyebrow="Articles" title="Notes from the build">Short, practical writing on AI agents, LLM features and the web.</PageHeader>
+      <PageHeader eyebrow="Articles" title="Notes from the build">Technical notes on AI agents, LLM features and full-stack product work.</PageHeader>
       <section className="mx-auto max-w-5xl px-6 pb-24 pt-8">
         <ul className="divide-y divide-line border-y border-line">
           {articles.map((a, i) => (

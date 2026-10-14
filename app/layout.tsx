@@ -6,6 +6,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import ChatAssistant from "@/components/ChatAssistant";
+import Analytics from "@/components/Analytics";
 import { profile, skills } from "@/lib/data";
 import { personId, siteUrl } from "@/lib/seo";
 
@@ -51,6 +52,10 @@ export const metadata: Metadata = {
   authors: [{ name: profile.name, url: siteUrl }],
   creator: profile.name,
   publisher: profile.name,
+  verification: {
+    ...(process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : {}),
+    ...(process.env.BING_SITE_VERIFICATION ? { other: { "msvalidate.01": process.env.BING_SITE_VERIFICATION } } : {}),
+  },
   robots: {
     index: true,
     follow: true,
@@ -64,7 +69,6 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: siteUrl,
     siteName: "Mahmud Al Muhaimin",
     locale: "en_US",
   },
@@ -76,6 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" data-scroll-behavior="smooth" className={`${grotesk.variable} ${inter.variable}`}>
       <body className="antialiased">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+        <Analytics />
         <Providers>
           <ScrollProgress />
           <Nav />
