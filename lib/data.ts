@@ -125,14 +125,6 @@ export const certifications = [
   { issuer: "freeCodeCamp", areas: "Python, machine learning and data science" },
   { issuer: "HackerRank", areas: "Python, machine learning and data science" },
 ];
-// PLACEHOLDER pricing: edit before going live. Amounts are in cents; the server is the only source of truth.
-export const offers = [
-  { slug: "ai-sprint", name: "AI product sprint", mode: "payment" as const, amount: 300000,
-    blurb: "Two weeks from idea to a working LLM or agent prototype, deployed." },
-  { slug: "retainer", name: "Engineering retainer", mode: "subscription" as const, amount: 150000,
-    blurb: "A monthly block of build time for your product. Cancel anytime." },
-];
-
 // Every figure below is taken from the project and experience entries above.
 export const stats = [
   { value: "248+", label: "freelance clients served" },

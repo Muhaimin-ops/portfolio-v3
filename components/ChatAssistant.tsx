@@ -2,10 +2,18 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-type Msg = { role: "user" | "assistant"; content: string };
+type Msg = { role: "user" | "assistant"; content: string; toolsUsed?: string[] };
 
-const greeting: Msg = { role: "assistant", content: "Hi, I'm Mahmud's AI assistant. Ask about his projects, experience, skills or rates." };
-const suggestions = ["What has Mahmud built?", "Is he available for work?", "What are his rates?"];
+const greeting: Msg = { role: "assistant", content: "Hi, I'm Mahmud's AI assistant. I can look up projects, articles, experience and skills." };
+const suggestions = ["Which project shows agent backend work?", "What can Mahmud help build?", "How do I discuss a project?"];
+const internalPath = /^\/(?:#work-with-me|articles\/[a-z0-9-]+|my-works(?:\/[a-z0-9-]+)?|contact)$/;
+
+function renderMessage(content: string) {
+  return content.split(/(\/#work-with-me|\/articles\/[a-z0-9-]+|\/my-works(?:\/[a-z0-9-]+)?|\/contact)/g)
+    .map((part, index) => internalPath.test(part)
+      ? <a key={index} href={part} className="underline underline-offset-2">{part}</a>
+      : part);
+}
 
 const Bubble = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -36,10 +44,10 @@ export default function ChatAssistant() {
     if (!q || busy) return;
     const next: Msg[] = [...msgs, { role: "user", content: q }];
     setMsgs(next); setInput(""); setBusy(true);
-    const revealReply = async (reply: string) => {
+    const revealReply = async (reply: string, toolsUsed: string[] = []) => {
       const characters = Array.from(reply);
       setTyping(true);
-      setMsgs((current) => [...current, { role: "assistant", content: "" }]);
+      setMsgs((current) => [...current, { role: "assistant", content: "", toolsUsed }]);
       for (let visible = 0; visible < characters.length; visible += 3) {
         await new Promise((resolve) => setTimeout(resolve, 12));
         const content = characters.slice(0, visible + 3).join("");
@@ -51,11 +59,17 @@ export default function ChatAssistant() {
     };
     try {
       const res = await fetch("/api/assistant", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ messages: next.slice(-8) }) });
-      const data = await res.json().catch(() => ({}));
-      const reply = typeof data.reply === "string" ? data.reply : "Sorry, I could not answer that. Please email Mahmud instead.";
-      await revealReply(reply);
-    } catch {
-      await revealReply("I could not reach the server. Please try again, or email Mahmud.");
+      const data: unknown = await res.json().catch(() => ({}));
+      const payload = typeof data === "object" && data !== null ? data as { reply?: unknown; error?: unknown; toolsUsed?: unknown } : {};
+      if (!res.ok) throw new Error(typeof payload.error === "string" ? payload.error : "The assistant could not answer just now.");
+      const reply = typeof payload.reply === "string" ? payload.reply : "Sorry, I could not answer that. Please email Mahmud instead.";
+      const toolsUsed = Array.isArray(payload.toolsUsed) ? payload.toolsUsed.filter((name): name is string => typeof name === "string") : [];
+      await revealReply(reply, toolsUsed);
+    } catch (error) {
+      const message = error instanceof Error && error.message !== "Failed to fetch"
+        ? error.message
+        : "I could not reach the server. Please try again, or email Mahmud.";
+      await revealReply(message);
     } finally { setBusy(false); }
   }
 
@@ -75,7 +89,10 @@ export default function ChatAssistant() {
               {msgs.map((m, i) => (
                 <motion.p key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
                   className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm ${m.role === "user" ? "ml-auto bg-ink text-bg" : "border border-line"}`}>
-                  {m.content}
+                  {m.role === "assistant" ? renderMessage(m.content) : m.content}
+                  {m.toolsUsed && m.toolsUsed.length > 0 && (
+                    <span className="mt-2 block text-[11px] text-muted">Checked: {m.toolsUsed.join(", ")}</span>
+                  )}
                   {typing && i === msgs.length - 1 && <span aria-hidden className="ml-0.5 inline-block h-4 w-1 animate-pulse bg-ink align-middle" />}
                 </motion.p>
               ))}

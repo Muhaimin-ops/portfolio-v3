@@ -13,7 +13,6 @@ export async function POST(req: Request) {
   }
   // TODO: persist event.id and skip repeats (Stripe retries), then fulfil.
   switch (event.type) {
-    case "checkout.session.completed": /* grant access / email onboarding */ break;
     case "invoice.paid": /* mark invoice paid */ break;
     case "invoice.payment_failed": /* notify, dunning */ break;
     case "customer.subscription.deleted": /* end retainer */ break;

@@ -6,6 +6,27 @@
   --font-display: var(--font-grotesk); --font-sans: var(--font-inter);
 }
 body { background: var(--bg); color: var(--ink); font-family: var(--font-sans), system-ui, sans-serif; }
+.glass-panel {
+  background-color: var(--bg);
+  background-color: color-mix(in srgb, var(--bg) 74%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+  backdrop-filter: blur(18px) saturate(125%);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--ink) 10%, transparent);
+}
+.glass-panel.glass-panel-tint {
+  background-color: var(--bg);
+  background-color: color-mix(in srgb, var(--accent) 24%, var(--bg) 76%);
+}
+.glass-panel.glass-panel-dark {
+  background-color: var(--ink);
+  background-color: color-mix(in srgb, var(--ink) 92%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--bg) 22%, transparent);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass-panel { background-color: var(--bg); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .glass-panel.glass-panel-tint { background-color: color-mix(in srgb, var(--accent) 24%, var(--bg) 76%); }
+  .glass-panel.glass-panel-dark { background-color: var(--ink); }
+}
 ::selection { background: var(--accent); color: var(--bg); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .reveal { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }

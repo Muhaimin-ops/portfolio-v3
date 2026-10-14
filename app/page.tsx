@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Hero from "@/components/Hero";
-import Offers from "@/components/Offers";
 import Section from "@/components/Section";
 import Reveal from "@/components/Reveal";
 import Marquee from "@/components/Marquee";
 import SpotlightCard from "@/components/SpotlightCard";
-import { caseStudies, projects, skills, offers, stats, availability, articles, experience, readingMinutes, slugify } from "@/lib/data";
+import ContactForm from "@/components/ContactForm";
+import { caseStudies, projects, skills, stats, availability, articles, experience, readingMinutes, slugify, profile } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "AI Engineer and Full-Stack Developer in Dhaka",
@@ -70,18 +70,31 @@ export default function Home() {
         </dl>
       </Section>
       <Section title="How can I help?">
-        <div className="grid gap-8 sm:grid-cols-2">
-          <div>
-            <h3 className="font-display text-2xl font-medium">Hiring an engineer?</h3>
-            <p className="mt-3 max-w-lg text-muted">Review my experience, technical focus and selected work for AI engineering and full-stack roles.</p>
-            <Link href="/for-employers" className="mt-5 inline-block underline underline-offset-4">For employers</Link>
-          </div>
-          <div>
-            <h3 className="font-display text-2xl font-medium">Building an AI product?</h3>
-            <p className="mt-3 max-w-lg text-muted">See the kinds of LLM and agent work I take on, how a project starts and how to get in touch.</p>
-            <Link href="/ai-development" className="mt-5 inline-block underline underline-offset-4">AI product development</Link>
-            <Link href="/ai-agent-development" className="mt-3 block underline underline-offset-4">AI agent backend development</Link>
-          </div>
+        <div className="grid gap-4 md:grid-cols-3 md:auto-rows-fr">
+          <article className="glass-panel glass-panel-dark relative isolate overflow-hidden rounded-2xl border border-white/15 bg-ink p-7 text-bg md:col-span-2 md:p-9">
+            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15),transparent_55%)]" />
+            <h3 className="font-display text-2xl font-medium">AI agents and LLM products</h3>
+            <p className="mt-3 max-w-xl leading-relaxed text-bg/75">From retrieval and model workflows to tool integrations, evaluation and production-ready interfaces.</p>
+            <Link href="/ai-development" className="mt-7 inline-block rounded-full border border-white/30 px-4 py-2 text-sm font-medium transition hover:bg-white/10 active:scale-[0.98]">Explore AI development{arrow}</Link>
+          </article>
+          <article className="glass-panel relative isolate overflow-hidden rounded-2xl border border-line p-7">
+            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_bottom_left,rgba(125,135,130,0.16),transparent_65%)]" />
+            <h3 className="font-display text-2xl font-medium">Agent backends</h3>
+            <p className="mt-3 leading-relaxed text-muted">Build task APIs, stateful workflows and integrations that keep agent actions observable and controlled.</p>
+            <Link href="/ai-agent-development" className="mt-7 inline-block underline underline-offset-4">Agent backend development{arrow}</Link>
+          </article>
+          <article className="glass-panel glass-panel-tint relative isolate overflow-hidden rounded-2xl border border-line p-7">
+            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(135deg,rgba(255,255,255,0.28),transparent_60%)]" />
+            <h3 className="font-display text-2xl font-medium">Full-stack product work</h3>
+            <p className="mt-3 leading-relaxed text-muted">Turn a product brief into a working web application, including the frontend, APIs and data flows.</p>
+            <Link href="/my-works" className="mt-7 inline-block underline underline-offset-4">See selected work{arrow}</Link>
+          </article>
+          <article className="glass-panel relative isolate overflow-hidden rounded-2xl border border-line p-7 md:col-span-2">
+            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_left,rgba(125,135,130,0.12),transparent_65%)]" />
+            <h3 className="font-display text-2xl font-medium">Hiring for your team?</h3>
+            <p className="mt-3 max-w-xl leading-relaxed text-muted">Review my experience, technical focus and selected work for AI engineering and full-stack roles.</p>
+            <Link href="/for-employers" className="mt-7 inline-block underline underline-offset-4">View employer information{arrow}</Link>
+          </article>
         </div>
       </Section>
       <Marquee items={Object.values(skills).flatMap((v) => v.split(", "))} />
@@ -129,8 +142,14 @@ export default function Home() {
         <Link href="/articles" className="group mt-8 inline-block underline underline-offset-4">All articles{arrow}</Link>
       </Section>
       <Section id="work-with-me" title="Work with me">
-        <Offers offers={offers.map((o) => ({ slug: o.slug, name: o.name, blurb: o.blurb, price: money(o.amount, o.mode) }))} />
-        <p className="mt-6 text-sm text-muted">Something custom? I send invoices for scoped work too. <Link href="/contact" className="underline underline-offset-4">Tell me about it</Link> and we will agree the details first.</p>
+        <div className="glass-panel grid gap-10 rounded-2xl border border-line p-6 md:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] md:p-9">
+          <div>
+            <h3 className="font-display text-2xl font-medium">Tell me what you are building</h3>
+            <p className="mt-3 max-w-sm leading-relaxed text-muted">Share the goal, what you need help with and any timing or budget context. I will reply to discuss scope and next steps.</p>
+            <p className="mt-6 text-sm text-muted">Prefer email? <a className="underline underline-offset-4" href={`mailto:${profile.email}`}>{profile.email}</a></p>
+          </div>
+          <ContactForm email={profile.email} projectBrief />
+        </div>
       </Section>
     </main>
   );
