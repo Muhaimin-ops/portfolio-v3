@@ -5,10 +5,15 @@ import Section from "@/components/Section";
 import { availability, experience, profile, skills } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "For employers",
-  description: "Hiring information for teams looking for an AI engineer or full-stack developer in Dhaka, Bangladesh.",
+  title: "AI Engineer in Dhaka | Full-Stack and LLM Experience",
+  description: "Hiring profile for Mahmud Al Muhaimin, an AI engineer and full-stack developer in Dhaka, Bangladesh, with experience across LLM systems, agent backends and web products.",
   alternates: { canonical: "/for-employers" },
-  openGraph: { type: "website", url: "/for-employers" },
+  openGraph: {
+    type: "website",
+    url: "/for-employers",
+    title: "AI Engineer in Dhaka | Full-Stack and LLM Experience",
+    description: "Review technical focus, experience and selected project evidence for AI engineering and full-stack roles.",
+  },
 };
 
 export default function ForEmployers() {

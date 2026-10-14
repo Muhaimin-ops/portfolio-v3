@@ -4,10 +4,15 @@ import PageHeader from "@/components/PageHeader";
 import Section from "@/components/Section";
 
 export const metadata: Metadata = {
-  title: "AI product development",
-  description: "Plan and build LLM features, RAG systems and AI agent backends with a developer who works across the model and application.",
+  title: "LLM, RAG and AI Product Development",
+  description: "Plan and build LLM features, retrieval-augmented generation (RAG) systems and AI products, from model integration through the full-stack application.",
   alternates: { canonical: "/ai-development" },
-  openGraph: { type: "website", url: "/ai-development" },
+  openGraph: {
+    type: "website",
+    url: "/ai-development",
+    title: "LLM, RAG and AI Product Development",
+    description: "Build LLM features and RAG systems as dependable parts of a full-stack product.",
+  },
 };
 
 const capabilities = [
@@ -36,6 +41,7 @@ export default function AiDevelopment() {
       <Section title="How I approach delivery">
         <p className="max-w-3xl leading-relaxed text-muted">Start by defining the user, the task and what a useful result looks like. Then choose the smallest suitable model and application design, test the failure paths, and measure behavior before making performance claims.</p>
         <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+          <Link href="/ai-agent-development" className="underline underline-offset-4">AI agent backend development</Link>
           <Link href="/my-works/suprbuild-mesh" className="underline underline-offset-4">Read the agent-mesh case study</Link>
           <Link href="/articles/a-checklist-before-you-ship-an-llm-feature" className="underline underline-offset-4">LLM release checklist</Link>
         </div>

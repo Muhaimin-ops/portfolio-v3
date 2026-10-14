@@ -6,11 +6,18 @@ import Section from "@/components/Section";
 import Reveal from "@/components/Reveal";
 import Marquee from "@/components/Marquee";
 import SpotlightCard from "@/components/SpotlightCard";
-import { caseStudies, projects, skills, offers, stats, availability, articles, readingMinutes, slugify } from "@/lib/data";
+import { caseStudies, projects, skills, offers, stats, availability, articles, experience, readingMinutes, slugify } from "@/lib/data";
 
 export const metadata: Metadata = {
+  title: "AI Engineer and Full-Stack Developer in Dhaka",
+  description: "Mahmud Al Muhaimin builds AI agent backends, LLM products and full-stack applications. Explore selected projects, experience and technical writing.",
   alternates: { canonical: "/" },
-  openGraph: { type: "website", url: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    title: "AI Engineer and Full-Stack Developer in Dhaka",
+    description: "Explore AI agent backends, LLM products, full-stack projects and experience by Mahmud Al Muhaimin.",
+  },
 };
 
 const money = (c: number, m: string) => `$${(c / 100).toLocaleString("en-US")}${m === "subscription" ? "/mo" : ""}`;
@@ -37,6 +44,31 @@ export default function Home() {
           </dl>
         </div>
       </div>
+      <Section title="Experience">
+        <ul className="space-y-8">
+          {experience.map((item, i) => (
+            <Reveal as="li" key={`${item.role}-${item.org}`} delay={i * 0.07} className="grid gap-2 border-b border-line pb-8 last:border-0 last:pb-0 sm:grid-cols-[minmax(10rem,0.7fr)_2fr] sm:gap-10">
+              <p className="text-sm text-muted">{item.when}</p>
+              <div>
+                <h3 className="font-display text-lg font-medium">{item.role}</h3>
+                <p className="mt-1 text-sm text-muted">{item.org}</p>
+                <p className="mt-3 max-w-2xl text-muted">{item.body}</p>
+              </div>
+            </Reveal>
+          ))}
+        </ul>
+        <Link href="/about" className="group mt-7 inline-block text-sm underline underline-offset-4">More about my background{arrow}</Link>
+      </Section>
+      <Section title="Technical focus">
+        <dl className="grid gap-x-12 gap-y-7 sm:grid-cols-2">
+          {Object.entries(skills).map(([area, tools]) => (
+            <div key={area} className="border-t border-line pt-4">
+              <dt className="font-display text-lg font-medium">{area}</dt>
+              <dd className="mt-2 leading-relaxed text-muted">{tools}</dd>
+            </div>
+          ))}
+        </dl>
+      </Section>
       <Section title="How can I help?">
         <div className="grid gap-8 sm:grid-cols-2">
           <div>
@@ -48,20 +80,34 @@ export default function Home() {
             <h3 className="font-display text-2xl font-medium">Building an AI product?</h3>
             <p className="mt-3 max-w-lg text-muted">See the kinds of LLM and agent work I take on, how a project starts and how to get in touch.</p>
             <Link href="/ai-development" className="mt-5 inline-block underline underline-offset-4">AI product development</Link>
+            <Link href="/ai-agent-development" className="mt-3 block underline underline-offset-4">AI agent backend development</Link>
           </div>
         </div>
       </Section>
       <Marquee items={Object.values(skills).flatMap((v) => v.split(", "))} />
       <Section title="Selected work">
-        <div className="grid gap-6 sm:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2">
           {projects.slice(0, 3).map((p, i) => (
-            <Reveal key={p.name} delay={i * 0.1}>
+            <Reveal key={p.name} delay={i * 0.1} className={i === 0 ? "sm:col-span-2" : ""}>
               <SpotlightCard className="h-full">
-                <Link href={caseStudies.some((study) => study.projectName === p.name) ? `/my-works/${slugify(p.name)}` : "/my-works"} className="group flex h-full flex-col p-6">
-                  <p className="text-sm text-muted">{p.tag}</p>
-                  <h3 className="mt-2 font-display text-xl font-medium">{p.name}</h3>
-                  <p className="mt-3 line-clamp-4 text-muted">{p.body}</p>
-                  <span className="mt-6 text-sm">Read more{arrow}</span>
+                <Link
+                  href={caseStudies.some((study) => study.projectName === p.name) ? `/my-works/${slugify(p.name)}` : "/my-works"}
+                  className={`group flex h-full flex-col p-6 ${i === 0 ? "sm:grid sm:grid-cols-[1fr_0.8fr] sm:items-center sm:gap-10 sm:p-8" : ""}`}
+                >
+                  <div>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                      <p className="text-sm text-muted">{p.tag}</p>
+                      {p.status === "In progress" && <span className="text-xs text-muted">In progress</span>}
+                    </div>
+                    <h3 className="mt-2 font-display text-xl font-medium">{p.name}</h3>
+                    <p className="mt-3 line-clamp-4 text-muted">{p.body}</p>
+                    <span className="mt-6 inline-block text-sm">Read more{arrow}</span>
+                  </div>
+                  {i === 0 && (
+                    <ul className="mt-7 space-y-3 border-t border-line pt-5 text-sm text-muted sm:mt-0 sm:border-l sm:border-t-0 sm:pl-8 sm:pt-0">
+                      {p.highlights.slice(0, 3).map((highlight) => <li key={highlight}>{highlight}</li>)}
+                    </ul>
+                  )}
                 </Link>
               </SpotlightCard>
             </Reveal>

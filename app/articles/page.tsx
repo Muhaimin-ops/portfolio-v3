@@ -7,16 +7,16 @@ import { siteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Articles",
-  description: "Technical notes on designing AI agent backends, shipping LLM features and building full-stack products.",
+  description: "Practical guides to agentic AI, MCP, the A2A protocol, Agent Communication Protocol (ACP), agentic commerce and the agentic economy.",
   alternates: { canonical: "/articles" },
-  openGraph: { type: "website", url: "/articles", title: "Articles", description: "Technical notes on designing AI agent backends, shipping LLM features and building full-stack products." },
+  openGraph: { type: "website", url: "/articles", title: "Articles", description: "Practical guides to agentic AI, MCP, the A2A protocol, Agent Communication Protocol (ACP), agentic commerce and the agentic economy." },
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Blog",
   name: "Articles by Mahmud Al Muhaimin",
-  description: "Technical notes on designing AI agent backends, shipping LLM features and building full-stack products.",
+  description: "Practical guides to agentic AI, MCP, the A2A protocol, Agent Communication Protocol (ACP), agentic commerce and the agentic economy.",
   url: `${siteUrl}/articles`,
   blogPost: articles.map((article) => ({
     "@type": "BlogPosting",
@@ -31,7 +31,7 @@ export default function Articles() {
   return (
     <main id="main">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      <PageHeader eyebrow="Articles" title="Notes from the build">Technical notes on AI agents, LLM features and full-stack product work.</PageHeader>
+      <PageHeader eyebrow="Articles" title="Notes from the build">Practical guides to agentic AI, MCP, A2A, agent communication, agentic commerce and full-stack product work.</PageHeader>
       <section className="mx-auto max-w-5xl px-6 pb-24 pt-8">
         <ul className="divide-y divide-line border-y border-line">
           {articles.map((a, i) => (

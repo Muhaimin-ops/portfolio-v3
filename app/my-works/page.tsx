@@ -5,10 +5,15 @@ import { projects } from "@/lib/data";
 import { siteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Projects",
-  description: "AI systems, agent backends, machine learning and full-stack products I have built.",
+  title: "AI, Agent and Full-Stack Projects",
+  description: "Case studies and source code for AI agent backends, a Bangla-native assistant, fintech, computer vision and machine-learning projects.",
   alternates: { canonical: "/my-works" },
-  openGraph: { type: "website", url: "/my-works" },
+  openGraph: {
+    type: "website",
+    url: "/my-works",
+    title: "AI, Agent and Full-Stack Projects",
+    description: "Explore source-backed projects in AI agents, Bangla AI, fintech, computer vision and machine learning.",
+  },
 };
 
 const jsonLd = {

@@ -49,6 +49,7 @@ export default async function Article({ params }: Props) {
     dateModified: a.date,
     inLanguage: "en",
     keywords: a.tags,
+    citation: a.sources?.map((source) => source.href),
     image: `${siteUrl}/opengraph-image`,
     mainEntityOfPage: `${siteUrl}/articles/${a.slug}`,
     author: { "@id": personId },
@@ -65,6 +66,28 @@ export default async function Article({ params }: Props) {
             <p className={`${b.h ? "mt-3" : ""} text-lg leading-relaxed text-muted`}>{b.p}</p>
           </div>
         ))}
+        {a.sources && (
+          <section className="mt-14 border-t border-line pt-6" aria-labelledby="article-sources">
+            <h2 id="article-sources" className="font-display text-xl font-medium">Sources and further reading</h2>
+            <ul className="mt-4 space-y-2">
+              {a.sources.map((source) => (
+                <li key={source.href}>
+                  <a href={source.href} target="_blank" rel="noopener noreferrer" className="text-muted underline underline-offset-4 hover:text-ink">{source.label} ↗</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+        {a.related && (
+          <nav className="mt-10" aria-label="Related articles">
+            <h2 className="font-display text-xl font-medium">Continue reading</h2>
+            <ul className="mt-4 space-y-2">
+              {a.related.map((article) => (
+                <li key={article.href}><Link href={article.href} className="text-muted underline underline-offset-4 hover:text-ink">{article.label}</Link></li>
+              ))}
+            </ul>
+          </nav>
+        )}
         <p className="mt-14"><Link href="/articles" className="underline underline-offset-4">← All articles</Link></p>
       </article>
     </main>

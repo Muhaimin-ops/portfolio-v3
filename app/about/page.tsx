@@ -3,13 +3,18 @@ import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import Section from "@/components/Section";
 import Reveal from "@/components/Reveal";
-import { profile, experience, skills, availability } from "@/lib/data";
+import { profile, experience, skills, certifications, availability } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "About",
-  description: "Background, experience and toolbox of Mahmud Al Muhaimin, AI engineer and full-stack developer in Dhaka.",
+  title: "About Mahmud Al Muhaimin | AI Engineer in Bangladesh",
+  description: "Background, freelance and software engineering experience, technical skills and certifications of AI engineer Mahmud Al Muhaimin in Dhaka, Bangladesh.",
   alternates: { canonical: "/about" },
-  openGraph: { type: "website", url: "/about" },
+  openGraph: {
+    type: "website",
+    url: "/about",
+    title: "About Mahmud Al Muhaimin | AI Engineer in Bangladesh",
+    description: "Experience, skills, education and certifications of Mahmud Al Muhaimin.",
+  },
 };
 
 export default function About() {
@@ -30,6 +35,20 @@ export default function About() {
         <dl className="grid gap-x-10 gap-y-5 sm:grid-cols-[8rem_1fr]">
           {Object.entries(skills).map(([k, v]) => (<div key={k} className="contents"><dt className="font-medium">{k}</dt><dd className="text-muted">{v}</dd></div>))}
         </dl>
+      </Section>
+      <Section title="Certifications">
+        <ul className="grid gap-x-12 gap-y-6 sm:grid-cols-2">
+          {certifications.map((item) => (
+            <li key={item.issuer} className="border-t border-line pt-4">
+              <h2 className="font-display text-lg font-medium">{item.issuer}</h2>
+              <p className="mt-2 text-muted">{item.areas}</p>
+            </li>
+          ))}
+        </ul>
+      </Section>
+      <Section title="MCP developer profile">
+        <p className="max-w-2xl text-muted">Explore my public developer profile on MCPize for its current MCP-related activity.</p>
+        <a href="https://mcpize.com/developers/m-Muhaimin" target="_blank" rel="noopener noreferrer" className="mt-4 inline-block underline underline-offset-4">View my MCPize developer profile ↗</a>
       </Section>
       <Section title="Let's talk">
         <p className="max-w-xl text-muted">{availability.status}. {availability.detail}</p>

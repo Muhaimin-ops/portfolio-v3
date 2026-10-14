@@ -68,6 +68,11 @@ export default async function CaseStudy({ params }: Props) {
         </ul>
         <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm">
           {project.href !== "#" && <a href={project.href} className="underline underline-offset-4">Source code on GitHub ↗</a>}
+          {study.references?.map((reference) => (
+            <a key={reference.href} href={reference.href} className="underline underline-offset-4" target="_blank" rel="noreferrer">
+              {reference.label} ↗
+            </a>
+          ))}
           <Link href="/contact" className="underline underline-offset-4">Contact about a similar project</Link>
           <Link href="/my-works" className="underline underline-offset-4">All projects</Link>
         </div>

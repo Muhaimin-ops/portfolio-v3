@@ -5,6 +5,7 @@ import Providers from "@/components/Providers";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
+import LandingTransition from "@/components/LandingTransition";
 import ChatAssistant from "@/components/ChatAssistant";
 import Analytics from "@/components/Analytics";
 import { profile, skills } from "@/lib/data";
@@ -82,6 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
         <Analytics />
         <Providers>
+          <LandingTransition />
           <ScrollProgress />
           <Nav />
           {children}
