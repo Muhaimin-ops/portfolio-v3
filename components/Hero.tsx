@@ -57,7 +57,6 @@ export default function Hero() {
         <div className="reveal mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm" style={{ animationDelay: ".9s" }}>
           <MagneticLink href="/contact" className="rounded-full bg-ink px-5 py-2.5 font-medium text-bg">Get in touch</MagneticLink>
           <a className="py-2.5 underline underline-offset-4" href="#work-with-me">Work with me</a>
-          {profile.links.map((l) => <a key={l.label} className="py-2.5 text-muted hover:text-ink" href={l.href}>{l.label}</a>)}
         </div>
       </div>
     </header>

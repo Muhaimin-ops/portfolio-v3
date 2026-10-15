@@ -53,7 +53,7 @@ export async function POST(request: Request) {
     canSubscribe: true,
   });
   token.roomConfig = new RoomConfiguration({
-    agents: [new RoomAgentDispatch({ agentName: "mahmud-portfolio-guide" })],
+    agents: [new RoomAgentDispatch({ agentName: "appointment-scheduling-1824" })],
   });
 
   try {

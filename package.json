@@ -1,15 +1,28 @@
 {
   "name": "muhaimin.dev",
   "private": true,
-  "scripts": { "dev": "next dev", "build": "next build", "start": "next start" },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
   "dependencies": {
     "@livekit/protocol": "^1.52.1",
-    "next": "16.4.0", "react": "19.3.1", "react-dom": "19.3.1",
-    "framer-motion": "14.2.0", "livekit-client": "^2.22.4",
-    "livekit-server-sdk": "^2.19.1", "stripe": "23.0.0"
+    "@phosphor-icons/react": "^2.1.10",
+    "framer-motion": "14.2.0",
+    "livekit-client": "^2.22.4",
+    "livekit-server-sdk": "^2.19.1",
+    "next": "16.4.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "stripe": "23.0.0"
   },
   "devDependencies": {
-    "tailwindcss": "4.3.3", "@tailwindcss/postcss": "4.3.3", "typescript": "7.0.2",
-    "@types/node": "latest", "@types/react": "latest", "@types/react-dom": "latest"
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "tailwindcss": "4.3.3",
+    "typescript": "7.0.2"
   }
 }
